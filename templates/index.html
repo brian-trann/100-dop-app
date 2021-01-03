@@ -1,16 +1,31 @@
-<!doctype html>
-<head>
-  <title>TEST</title>
+{% extends 'base.html' %}
 
-</head>
-<body>
+{% block title %}100 Days of Code{% endblock %}
 
-<div id="">
-<p>hello world!! - testing leds</p>
+{% block content %}
+
+<h1>100 Days of Code - LED Edition</h1>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden'%}
+    <div class="form-group">
+        {{field.label}}
+        {{field(class_="form-control")}}
+  
+        {% for err in field.errors %}
+        <small class="form-text text-danger">
+          {{err}}
+        </small>
+        {% endfor %}
+    </div>
+
+    {% endfor %}
+    <button class="btn btn-info">LED ON</button>
+</form>
+<div class="my-3">
+  <a href="/leds/off" class="btn btn-outline-info" >All off</a>
+  <a href="/leds/on" class="btn btn-info" >All on</a>
 </div>
 
-
-
-</body>
-</html>
-
+{% endblock %}
